@@ -1,0 +1,166 @@
+Tu es un développeur senior mobile full-stack expert en React Native, Expo, React, Capacitor, Supabase, UX mobile premium, plateformes financières, levée de fonds et M&A.
+
+Je veux créer une application mobile pour Winvesty.
+
+CONTEXTE
+
+Winvesty est une plateforme stratégique française dédiée à la levée de fonds, au M&A, à la structuration de dossiers, à la visibilité qualifiée, au matching investisseurs et à la Deal Room privée.
+
+Le site public de référence est :
+https://www.winvesty.com
+
+L’objectif est de créer une application mobile téléchargeable à terme sur Google Play et Apple App Store.
+
+L’application doit reprendre l’univers visuel premium de Winvesty, mais ne doit pas être une simple copie du site mobile. Elle doit avoir une vraie ergonomie d’application mobile.
+
+OBJECTIF DE L’APP
+
+Créer une application mobile Winvesty permettant :
+
+1. Aux startups de s’inscrire
+2. Aux startups de déposer leur dossier
+3. Aux investisseurs de s’inscrire
+4. Aux investisseurs de renseigner leurs critères
+5. À Winvesty de valider les investisseurs
+6. Aux investisseurs validés d’accéder à une Deal Room mobile
+7. Aux utilisateurs de consulter des opportunités de levée de fonds ou de M&A
+8. À terme, de connecter les agents IA Winvesty
+
+STACK TECHNIQUE
+
+Créer une application avec :
+
+- Expo / React Native si possible
+- ou React mobile-first + Capacitor si plus rapide
+- Supabase pour l’authentification
+- Supabase pour la base de données
+- architecture propre
+- composants réutilisables
+- design premium
+- navigation mobile fluide
+
+DESIGN
+
+L’application doit être :
+
+- premium
+- sobre
+- institutionnelle
+- crédible pour des startups, investisseurs, business angels, family offices, corporate VC et dirigeants
+- proche de l’univers Winvesty
+- beaucoup plus élégante qu’une simple web app
+- adaptée mobile
+
+Créer une navigation mobile avec :
+
+- Accueil
+- Deal Room
+- Déposer un dossier
+- Investisseur
+- Profil
+- Notifications
+- Paramètres
+
+ÉCRANS À CRÉER
+
+1. Splash screen
+- Logo Winvesty
+- Baseline premium
+- Chargement élégant
+
+2. Onboarding
+- Je suis une startup
+- Je suis un investisseur
+- Je suis déjà membre
+
+3. Connexion / inscription
+- Email
+- Mot de passe
+- Rôle : startup ou investisseur
+- Connexion Supabase Auth
+
+4. Espace startup
+- Déposer mon dossier
+- Nom de la société
+- Secteur
+- Pays
+- Montant recherché
+- Stade
+- Description
+- Upload pitch deck
+- Statut du dossier
+
+5. Espace investisseur
+- Profil investisseur
+- Type : VC, business angel, family office, corporate VC
+- Ticket minimum
+- Ticket maximum
+- Secteurs recherchés
+- Zones géographiques
+- Stade d’investissement
+- Statut de validation
+
+6. Deal Room mobile
+- Liste des opportunités
+- Cartes startups
+- Badge WEP Access
+- Badge WEP Premium
+- Badge WEP Strategic
+- Montant recherché
+- Secteur
+- Pays
+- Score de préparation
+- Bouton “Voir le dossier”
+
+7. Fiche opportunité
+- Logo
+- Nom
+- Résumé
+- Secteur
+- Montant recherché
+- Stade
+- Avis Winvesty
+- Documents disponibles
+- Bouton “Demander une mise en relation”
+- Bouton “Sauvegarder”
+
+8. Notifications
+- Dossier validé
+- Nouvelle opportunité
+- Mise en relation demandée
+- Statut modifié
+
+9. Back-office simplifié
+- Liste des utilisateurs
+- Liste des startups
+- Liste des investisseurs
+- Validation investisseur
+- Publication dans la Deal Room
+
+SUPABASE
+
+Prévoir les tables suivantes :
+
+- users_profiles
+- startups_applications
+- investors_profiles
+- dealroom_opportunities
+- saved_opportunities
+- connection_requests
+- notifications
+- admin_actions
+
+Prévoir les rôles :
+
+- startup
+- investor_pending
+- investor_validated
+- admin
+
+IMPORTANT
+
+L’application ne doit pas être un simple site encapsulé.
+Elle doit être pensée comme une vraie app mobile.
+Elle doit pouvoir évoluer vers une publication Google Play et App Store.
+
+Commence par créer une V1 fonctionnelle avec données mockées, puis prépare la connexion Supabase via variables d’environnement.
