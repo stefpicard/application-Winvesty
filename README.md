@@ -133,3 +133,38 @@ L’application principale se trouve dans :
 
 ```text
 artifacts/winvesty-app
+
+## Instructions pour reprise du projet dans Replit
+
+Avant toute modification du code, commencer par faire un état des lieux complet du projet.
+
+Objectif : comprendre précisément l’architecture existante, les stacks utilisées, les dossiers importants, les commandes de lancement et les éventuels points de vigilance.
+
+Analyser notamment :
+
+1. La structure générale du repository.
+2. Le rôle de chaque dossier principal.
+3. Le `package.json` racine.
+4. Le fonctionnement du monorepo pnpm.
+5. Le dossier `artifacts/winvesty-app`.
+6. Le dossier `artifacts/api-server`.
+7. Le dossier `artifacts/mockup-sandbox`.
+8. Les scripts disponibles.
+9. Les dépendances principales.
+10. Les variables d’environnement nécessaires.
+11. Les commandes exactes pour lancer l’application.
+12. Les commandes exactes pour lancer le backend.
+13. Les erreurs potentielles au démarrage.
+14. Les fichiers à ne surtout pas modifier sans validation.
+15. Les fichiers probablement importants pour l’application utilisateur Winvesty.
+
+Ne modifier aucun fichier pendant cette première étape.
+
+À la fin de l’analyse, fournir :
+
+- un résumé clair de l’architecture ;
+- la stack exacte utilisée ;
+- la commande recommandée pour lancer l’application principale ;
+- la commande recommandée pour lancer le backend ;
+- les éventuelles incohérences détectées ;
+- les prochaines étapes recommandées avant de faire évoluer le projet.
