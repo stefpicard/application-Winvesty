@@ -1,0 +1,569 @@
+Tu travailles sur l’application mobile Winvesty déjà existante.
+
+IMPORTANT ABSOLU AVANT TOUTE MODIFICATION
+
+Avant d’ajouter les nouvelles fonctionnalités, tu dois impérativement sauvegarder l’état actuel du projet.
+
+Je veux pouvoir revenir exactement à la version actuelle si les prochaines évolutions ne me conviennent pas.
+
+Étapes obligatoires avant de coder :
+
+1. Vérifier l’état actuel du projet.
+2. Créer un commit Git propre de la version actuelle.
+3. Créer une branche de sauvegarde.
+4. Créer un tag de version stable.
+5. Créer un fichier CHANGELOG.md.
+6. M’expliquer clairement comment revenir à cette version.
+
+Noms à utiliser :
+
+Branche de sauvegarde :
+backup/mobile-app-current-version-before-investor-startup-ux
+
+Tag Git :
+stable-mobile-app-v1-before-ux-upgrade
+
+Message de commit :
+Save current Winvesty mobile app version before investor and startup UX upgrade
+
+Si Git n’est pas encore initialisé, initialise Git proprement dans le projet.
+
+Commandes à utiliser si possible :
+
+git status
+git add .
+git commit -m "Save current Winvesty mobile app version before investor and startup UX upgrade"
+git branch backup/mobile-app-current-version-before-investor-startup-ux
+git tag stable-mobile-app-v1-before-ux-upgrade
+
+Ensuite, créer un fichier :
+
+CHANGELOG.md
+
+Avec le contenu suivant :
+
+# Winvesty Mobile App - Changelog
+
+## stable-mobile-app-v1-before-ux-upgrade
+
+Version sauvegardée avant les nouvelles évolutions UX investisseur et startup.
+
+Cette version correspond à l’état actuel de l’application avant l’ajout des fonctionnalités suivantes :
+- Investor Cockpit avancé
+- Startup Cockpit
+- Deal Room intelligente
+- filtres premium
+- notifications qualifiées
+- Watchlist investisseur
+- score de match
+- explication “Pourquoi ce deal ?”
+- confidential deals
+- amélioration de l’expérience mobile premium
+
+Procédure de retour arrière :
+
+git checkout stable-mobile-app-v1-before-ux-upgrade
+
+ou
+
+git checkout backup/mobile-app-current-version-before-investor-startup-ux
+
+Créer également un fichier :
+
+ROLLBACK.md
+
+Avec une explication simple :
+
+# Procédure de retour arrière
+
+Si les nouvelles évolutions ne conviennent pas, revenir à la version sauvegardée avec :
+
+git checkout stable-mobile-app-v1-before-ux-upgrade
+
+Pour créer une nouvelle branche à partir de cette version :
+
+git checkout -b restore-from-stable-mobile-app-v1 stable-mobile-app-v1-before-ux-upgrade
+
+IMPORTANT :
+Ne commence aucune évolution fonctionnelle tant que cette sauvegarde n’est pas faite.
+
+Une fois la sauvegarde terminée, indique-moi clairement :
+- le commit créé ;
+- la branche créée ;
+- le tag créé ;
+- les fichiers de documentation créés ;
+- la commande exacte pour revenir à cette version.
+
+APRÈS LA SAUVEGARDE UNIQUEMENT
+
+Tu peux ensuite améliorer l’application mobile Winvesty.
+
+CONTEXTE
+
+L’application mobile Winvesty existe déjà en première version.
+
+Ne repars pas de zéro.
+Conserve l’existant.
+Améliore progressivement l’expérience investisseur et l’expérience startup pour que l’application ne soit pas une simple version mobile du site, mais un véritable espace privé intelligent.
+
+Winvesty est une plateforme stratégique dédiée à la levée de fonds, au M&A, au matching investisseurs, à la structuration des dossiers, à la visibilité qualifiée et à une Deal Room privée.
+
+Le site public est sur Wix.
+Les membres, contacts et collections startups sont actuellement dans Wix.
+L’application doit pouvoir communiquer avec Wix via des APIs Velo sécurisées, et préparer progressivement une architecture Supabase.
+
+OBJECTIF STRATÉGIQUE
+
+Transformer l’app en :
+
+1. Investor Cockpit
+2. Startup Cockpit
+3. Deal Room intelligente
+4. Système de matching
+5. Système de notifications qualifiées
+6. Espace de suivi des dossiers
+7. Interface premium, moderne, crédible et réellement app-like
+
+IMPORTANT
+
+L’application ne doit pas être un simple site encapsulé.
+Elle doit avoir une vraie expérience mobile :
+- splash screen ;
+- navigation basse ;
+- onboarding ;
+- notifications ;
+- watchlist ;
+- filtres dynamiques ;
+- scores ;
+- interactions natives ;
+- écrans personnalisés ;
+- états de chargement premium ;
+- feedback utilisateur clair.
+
+PARTIE 1 — IDENTITÉ VISUELLE WINVESTY
+
+Utiliser le logo officiel Winvesty fourni dans les assets du projet.
+
+Ne recrée pas le logo à partir de zéro.
+Ne génère pas une approximation du W.
+Ne modifie pas la forme du W ni la flèche.
+Ne change pas les proportions.
+
+Le logo officiel doit être utilisé pour :
+- le splash screen ;
+- le header ;
+- l’écran de connexion ;
+- l’icône interne de l’application ;
+- les écrans onboarding ;
+- les pages premium de la Deal Room.
+
+Si plusieurs versions du logo sont fournies, utilise :
+- la version claire sur fond sombre ;
+- la version sombre sur fond clair ;
+- l’icône seule W pour les petits espaces ;
+- le logo complet Winvesty pour les écrans d’accueil.
+
+PARTIE 2 — INVESTOR COCKPIT
+
+Créer un écran d’accueil personnalisé pour les investisseurs validés.
+
+L’écran doit afficher :
+
+- nombre de nouvelles opportunités correspondant à ses critères ;
+- opportunités recommandées ;
+- opportunités récemment ajoutées ;
+- opportunités confidentielles disponibles sur demande ;
+- dossiers sauvegardés ;
+- demandes de mise en relation ;
+- notifications non lues ;
+- accès rapide aux critères d’investissement.
+
+Blocs à créer :
+
+- Recommandé pour vous
+- Nouveaux dossiers
+- Opportunités confidentielles
+- Ma Watchlist
+- Mes critères
+- Mes demandes de mise en relation
+
+Exemple :
+
+“3 nouvelles opportunités correspondent à vos critères.”
+
+PARTIE 3 — DEAL ROOM INTELLIGENTE
+
+Créer trois onglets dans la Deal Room :
+
+1. Recommandé pour vous
+2. Toutes les opportunités
+3. Confidentiel / sur demande
+
+Chaque carte opportunité doit afficher :
+
+- logo ;
+- nom de la société ;
+- secteur ;
+- pays ;
+- stade ;
+- montant recherché ;
+- chiffre d’affaires si disponible ;
+- type d’opération : levée, M&A, cession, acquisition, rapprochement ;
+- WEP Access / WEP Premium / WEP Strategic ;
+- score de préparation ;
+- score de match investisseur ;
+- deck disponible ;
+- mandat signé ;
+- nouveauté ;
+- bouton Voir le dossier ;
+- bouton Sauvegarder.
+
+Ajouter un badge :
+
+“Match 86 %”
+
+Ajouter un badge :
+
+“Correspond à vos critères”
+
+PARTIE 4 — EXPLICATION DU MATCH
+
+Créer une section :
+
+“Pourquoi ce deal ?”
+
+Pour chaque opportunité recommandée, expliquer pourquoi elle correspond à l’investisseur :
+
+- secteur compatible ;
+- pays compatible ;
+- ticket compatible ;
+- stade compatible ;
+- type d’opération compatible ;
+- chiffre d’affaires compatible ;
+- mots-clés compatibles.
+
+Exemple :
+
+“Cette opportunité vous est proposée car elle correspond à vos critères sur 4 dimensions : secteur, pays, ticket et stade.”
+
+PARTIE 5 — FILTRES DEAL ROOM
+
+Ajouter des filtres manuels dans la Deal Room.
+
+Filtres à créer :
+
+- pays ;
+- secteur ;
+- sous-secteur ;
+- stade ;
+- montant minimum ;
+- montant maximum ;
+- chiffre d’affaires minimum ;
+- EBITDA minimum ;
+- croissance minimum ;
+- type d’opération ;
+- WEP Access ;
+- WEP Premium ;
+- WEP Strategic ;
+- score de préparation minimum ;
+- deck disponible ;
+- mandat signé ;
+- opportunités récemment ajoutées ;
+- opportunités sauvegardées ;
+- correspond à mes critères.
+
+Ajouter un tri :
+
+- pertinence ;
+- date d’ajout ;
+- score de préparation ;
+- montant recherché ;
+- score de match.
+
+Les filtres doivent réellement modifier les résultats affichés.
+
+Prévoir :
+- chips de filtres sélectionnés ;
+- bouton “Réinitialiser” ;
+- message premium si aucun résultat ne correspond.
+
+Message :
+
+“Aucune opportunité ne correspond exactement à vos filtres. Vous pouvez élargir vos critères ou consulter les opportunités recommandées par Winvesty.”
+
+PARTIE 6 — NOTIFICATIONS QUALIFIÉES
+
+Créer des notifications in-app.
+
+Types de notifications :
+
+- nouvelle opportunité correspondant aux critères ;
+- startup WEP Premium publiée ;
+- nouveau deck disponible ;
+- dossier sauvegardé mis à jour ;
+- opportunité confidentielle disponible ;
+- demande de mise en relation transmise ;
+- avis Winvesty ajouté ;
+- statut investisseur validé.
+
+Exemple :
+
+Titre :
+“Nouvelle opportunité qualifiée”
+
+Message :
+“Une startup MedTech en Seed vient d’intégrer la Deal Room et correspond à 86 % à vos critères.”
+
+Prévoir :
+- badge de notifications non lues ;
+- écran notifications ;
+- bouton marquer comme lu ;
+- bouton voir l’opportunité ;
+- possibilité de désactiver certaines notifications ;
+- structure prête pour notifications push Expo plus tard.
+
+PARTIE 7 — WATCHLIST INVESTISSEUR
+
+Créer une section :
+
+“Ma Watchlist”
+
+Un investisseur peut sauvegarder une opportunité avec un statut :
+
+- À lire
+- Intéressant
+- À suivre
+- Demande envoyée
+- Contact établi
+- Non prioritaire
+
+Créer une table ou structure :
+
+saved_opportunities
+- id
+- investor_id
+- opportunity_id
+- status
+- note
+- created_at
+- updated_at
+
+PARTIE 8 — DOSSIER OPPORTUNITÉ PREMIUM
+
+Créer une fiche détaillée avec onglets :
+
+- Résumé
+- Marché
+- Traction
+- Équipe
+- Financement
+- Documents
+- Avis Winvesty
+- Pourquoi ce deal
+- Demander une mise en relation
+
+Dans “Avis Winvesty”, afficher :
+
+- lecture synthétique du dossier ;
+- points forts ;
+- points de vigilance ;
+- niveau de préparation ;
+- recommandation Winvesty.
+
+PARTIE 9 — CONFIDENTIAL DEALS
+
+Créer un mode :
+
+“Confidentiel / sur demande”
+
+Certaines opportunités ne doivent pas être totalement visibles.
+
+Carte confidentielle :
+
+- secteur ;
+- pays ;
+- type d’opération ;
+- fourchette de montant ;
+- niveau de match ;
+- accès au teaser sur validation.
+
+Bouton :
+
+“Demander l’accès”
+
+Ne pas afficher le nom complet, le deck ou les informations sensibles tant que l’accès n’est pas validé par Winvesty.
+
+PARTIE 10 — STARTUP COCKPIT
+
+Créer un écran d’accueil startup.
+
+L’écran doit afficher :
+
+- statut du dossier ;
+- progression de préparation ;
+- documents transmis ;
+- statut WEP ;
+- statut mandat ;
+- statut Deal Room ;
+- prochaines étapes ;
+- messages Winvesty ;
+- recommandations prioritaires.
+
+Étapes :
+
+1. Dossier reçu
+2. Analyse en cours
+3. Retour Winvesty
+4. Mandat
+5. Label WEP
+6. Publication Deal Room
+7. Mise en relation
+
+Créer une barre de progression premium.
+
+PARTIE 11 — SCORE DE PRÉPARATION STARTUP
+
+Créer un score de préparation investisseur.
+
+Dimensions :
+
+- clarté du pitch ;
+- traction ;
+- modèle économique ;
+- cohérence du montant recherché ;
+- qualité du deck ;
+- préparation financière ;
+- positionnement marché ;
+- équipe ;
+- urgence / timing.
+
+Afficher :
+
+Score global : 68 / 100
+
+Puis :
+- points forts ;
+- points à renforcer ;
+- recommandations prioritaires.
+
+PARTIE 12 — DOCUMENT CENTER
+
+Créer un espace documents pour les startups :
+
+- pitch deck ;
+- teaser ;
+- business plan ;
+- prévisionnel ;
+- documents juridiques ;
+- mandat ;
+- autres fichiers.
+
+Prévoir les statuts :
+
+- reçu ;
+- à compléter ;
+- validé ;
+- à corriger.
+
+PARTIE 13 — BACK-OFFICE ADMIN
+
+Créer ou préparer un espace admin avec :
+
+- liste startups ;
+- liste investisseurs ;
+- statut des investisseurs ;
+- validation investisseur ;
+- publication Deal Room ;
+- publication confidentielle ;
+- ajout avis Winvesty ;
+- aperçu des investisseurs matchés ;
+- génération des notifications ;
+- retrait d’une opportunité de la Deal Room.
+
+Quand une startup passe en “published_in_dealroom”, déclencher :
+
+1. Calcul du match avec les investisseurs
+2. Création des notifications
+3. Affichage du nombre d’investisseurs concernés
+
+PARTIE 14 — COMMUNICATION WIX / SUPABASE
+
+Préparer une communication avec Wix via API Velo pour :
+
+- récupérer les startups visibles ;
+- récupérer le détail d’une opportunité ;
+- récupérer le statut investisseur ;
+- mettre à jour les critères investisseur ;
+- envoyer une demande de mise en relation ;
+- envoyer un dossier startup ;
+- synchroniser les statuts.
+
+Préparer les structures Supabase suivantes :
+
+users_profiles
+investor_criteria
+dealroom_opportunities
+saved_opportunities
+connection_requests
+notifications
+startup_applications
+startup_documents
+startup_scores
+admin_actions
+confidential_access_requests
+
+PARTIE 15 — SÉCURITÉ
+
+Un investisseur non validé ne doit pas voir la Deal Room.
+Une opportunité confidentielle ne doit pas afficher ses informations sensibles sans validation.
+Les clés privées ne doivent jamais être exposées dans l’app mobile.
+Prévoir une vérification de rôle.
+
+PARTIE 16 — UX PREMIUM
+
+Améliorer l’ergonomie mobile avec :
+
+- navigation basse ;
+- cartes propres ;
+- skeleton loaders ;
+- pull-to-refresh ;
+- micro-animations sobres ;
+- transitions fluides ;
+- chips de filtres ;
+- badges élégants ;
+- hiérarchie claire ;
+- aucun effet gadget ;
+- aucun design enfantin ;
+- ambiance fintech / banque d’affaires digitale.
+
+PRIORITÉ D’IMPLÉMENTATION
+
+Après la sauvegarde obligatoire, implémente dans cet ordre :
+
+1. Investor Cockpit
+2. Deal Room intelligente
+3. Filtres manuels
+4. Score de match
+5. Explication “Pourquoi ce deal ?”
+6. Notifications in-app
+7. Watchlist
+8. Startup Cockpit
+9. Score de préparation startup
+10. Confidential Deals
+11. Admin publication / notification
+12. Connexion progressive Wix / Supabase
+
+RÈGLE FINALE
+
+Ne crée pas seulement une maquette.
+Je veux des fonctionnalités réelles et testables.
+
+Conserve l’existant.
+Améliore progressivement sans casser l’application.
+
+À la fin, fournis :
+- résumé des fichiers modifiés ;
+- résumé des nouvelles fonctionnalités ;
+- commande pour lancer l’application ;
+- commande pour revenir à la version sauvegardée ;
+- points restant à connecter à Wix ou Supabase.

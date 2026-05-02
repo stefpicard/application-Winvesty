@@ -17,6 +17,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/context/AuthContext";
 import { InvestorCriteriaProvider } from "@/context/InvestorCriteriaContext";
 import { NotificationsProvider } from "@/context/NotificationsContext";
+import { WatchlistProvider } from "@/context/WatchlistContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -62,7 +63,9 @@ export default function RootLayout() {
               <AuthProvider>
                 <NotificationsProvider>
                   <InvestorCriteriaProvider>
-                    <RootLayoutNav />
+                    <WatchlistProvider>
+                      <RootLayoutNav />
+                    </WatchlistProvider>
                   </InvestorCriteriaProvider>
                 </NotificationsProvider>
               </AuthProvider>

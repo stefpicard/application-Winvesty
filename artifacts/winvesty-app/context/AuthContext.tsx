@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { UserProfile, mockUser, mockStartupUser } from "@/data/mockData";
+import { UserProfile, mockAdminUser, mockStartupUser, mockUser } from "@/data/mockData";
 
 interface AuthContextType {
   user: UserProfile | null;
@@ -36,8 +36,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = async (email: string, _password: string) => {
-    const profile: UserProfile =
-      email.toLowerCase().includes("startup") ? mockStartupUser : mockUser;
+    const e = email.toLowerCase();
+    let profile: UserProfile;
+    if (e.includes("startup")) {
+      profile = mockStartupUser;
+    } else if (e.includes("admin") || e.includes("winvesty")) {
+      profile = mockAdminUser;
+    } else {
+      profile = mockUser;
+    }
     await AsyncStorage.setItem("winvesty_user", JSON.stringify(profile));
     setUser(profile);
   };
