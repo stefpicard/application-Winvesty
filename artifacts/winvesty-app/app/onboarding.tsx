@@ -15,6 +15,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useColors } from "@/hooks/useColors";
 
 const { width } = Dimensions.get("window");
+const LOGO = require("@/assets/images/logo-winvesty.png");
 
 export default function OnboardingScreen() {
   const colors = useColors();
@@ -34,7 +35,7 @@ export default function OnboardingScreen() {
       ]}
     >
       <View style={styles.logoSection}>
-        <Text style={styles.logoText}>W</Text>
+        <Image source={LOGO} style={styles.logo} resizeMode="contain" />
         <Text style={styles.brandName}>WINVESTY</Text>
         <Text style={styles.tagline}>La plateforme stratégique française{"\n"}de levée de fonds & M&A</Text>
       </View>
@@ -101,18 +102,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 48,
   },
-  logoText: {
-    fontSize: 56,
-    fontFamily: "Inter_700Bold",
-    color: "#FFFFFF",
-    lineHeight: 64,
+  logo: {
+    width: 110,
+    height: 90,
+    marginBottom: 10,
   },
   brandName: {
     fontSize: 22,
     fontFamily: "Inter_700Bold",
     color: "#FFFFFF",
     letterSpacing: 6,
-    marginBottom: 16,
+    marginBottom: 14,
   },
   tagline: {
     fontSize: 14,

@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -16,6 +17,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAuth } from "@/context/AuthContext";
 import { useColors } from "@/hooks/useColors";
+
+const LOGO = require("@/assets/images/logo-winvesty.png");
 
 const ROLES = [
   { key: "startup" as const, label: "Startup", icon: "trending-up" as const },
@@ -70,6 +73,7 @@ export default function RegisterScreen() {
         </Pressable>
 
         <View style={styles.header}>
+          <Image source={LOGO} style={styles.logo} resizeMode="contain" />
           <Text style={styles.brand}>WINVESTY</Text>
           <Text style={styles.title}>Créer un compte</Text>
           <Text style={styles.subtitle}>Rejoignez la plateforme professionnelle</Text>
@@ -186,6 +190,11 @@ const styles = StyleSheet.create({
   scroll: { paddingHorizontal: 24, gap: 0 },
   backBtn: { marginBottom: 20, alignSelf: "flex-start" },
   header: { alignItems: "center", marginBottom: 28, gap: 4 },
+  logo: {
+    width: 90,
+    height: 74,
+    marginBottom: 6,
+  },
   brand: {
     fontSize: 16,
     fontFamily: "Inter_700Bold",

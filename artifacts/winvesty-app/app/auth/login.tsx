@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -16,6 +17,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAuth } from "@/context/AuthContext";
 import { useColors } from "@/hooks/useColors";
+
+const LOGO = require("@/assets/images/logo-winvesty.png");
 
 export default function LoginScreen() {
   const colors = useColors();
@@ -63,7 +66,7 @@ export default function LoginScreen() {
         </Pressable>
 
         <View style={styles.header}>
-          <Text style={styles.logoW}>W</Text>
+          <Image source={LOGO} style={styles.logo} resizeMode="contain" />
           <Text style={styles.brand}>WINVESTY</Text>
           <Text style={styles.title}>Connexion</Text>
           <Text style={styles.subtitle}>Accédez à votre espace professionnel</Text>
@@ -144,11 +147,10 @@ const styles = StyleSheet.create({
   scroll: { paddingHorizontal: 24, gap: 0 },
   backBtn: { marginBottom: 20, alignSelf: "flex-start" },
   header: { alignItems: "center", marginBottom: 32, gap: 4 },
-  logoW: {
-    fontSize: 42,
-    fontFamily: "Inter_700Bold",
-    color: "#FFFFFF",
-    lineHeight: 50,
+  logo: {
+    width: 90,
+    height: 74,
+    marginBottom: 6,
   },
   brand: {
     fontSize: 16,
