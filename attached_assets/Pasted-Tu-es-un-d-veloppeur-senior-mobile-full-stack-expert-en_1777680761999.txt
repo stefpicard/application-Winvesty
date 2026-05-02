@@ -1,0 +1,387 @@
+Tu es un développeur senior mobile full-stack expert en React Native / Expo, React, Supabase, UX mobile premium, notifications, matching investisseur/startup, plateformes de levée de fonds et Deal Room privées.
+
+CONTEXTE
+
+Tu travailles déjà sur l’application mobile Winvesty.
+
+Ne repars pas de zéro.
+Conserve l’existant.
+Améliore l’application actuelle en ajoutant deux fonctionnalités essentielles :
+
+1. Notifications intelligentes investisseur
+2. Filtres intelligents dans la Deal Room mobile
+
+Winvesty est une plateforme stratégique dédiée à la levée de fonds, au M&A, à la structuration de dossiers, à la visibilité qualifiée, au matching investisseurs et à une Deal Room privée.
+
+OBJECTIF GLOBAL
+
+L’application doit permettre :
+
+- aux startups de s’inscrire ;
+- aux startups de déposer leur dossier ;
+- à Winvesty de valider une startup ;
+- à Winvesty d’indiquer qu’une startup a signé un mandat ;
+- à Winvesty de publier cette startup dans la Deal Room ;
+- aux investisseurs de renseigner leurs critères d’investissement ;
+- aux investisseurs validés d’accéder à une Deal Room mobile ;
+- aux investisseurs de recevoir une notification lorsqu’une nouvelle startup publiée dans la Deal Room correspond à leurs critères ;
+- aux investisseurs de filtrer manuellement la Deal Room avec des critères précis.
+
+IMPORTANT
+
+Il faut bien distinguer deux types de critères :
+
+1. Critères permanents de l’investisseur
+Ces critères sont renseignés dans son profil ou pendant l’onboarding investisseur.
+Ils servent au matching automatique et aux notifications.
+
+2. Filtres temporaires de la Deal Room
+Ces filtres sont utilisés directement dans la Deal Room mobile.
+Ils permettent à l’investisseur de choisir ce qu’il veut afficher à un moment donné.
+
+Les deux systèmes doivent coexister.
+
+PARTIE 1 — CRITÈRES INVESTISSEUR ENREGISTRÉS
+
+Dans l’espace investisseur, prévoir ou améliorer les champs suivants :
+
+- type d’investisseur : VC, business angel, family office, corporate VC, entrepreneur investisseur, fonds sectoriel ;
+- secteurs recherchés ;
+- pays ou zones géographiques recherchés ;
+- ticket minimum ;
+- ticket maximum ;
+- stade recherché : pré-seed, seed, Série A, Série B, growth, M&A ;
+- chiffre d’affaires minimum recherché ;
+- chiffre d’affaires maximum recherché ;
+- EBITDA minimum si disponible ;
+- préférence levée de fonds ou M&A ;
+- intérêt pour sociétés rentables ;
+- intérêt pour sociétés en croissance ;
+- intérêt pour sociétés en difficulté mais retournables ;
+- mots-clés sectoriels ;
+- critères exclus.
+
+Ces critères doivent être enregistrés dans Supabase.
+
+Créer ou adapter une table :
+
+investor_criteria
+
+Champs recommandés :
+
+- id
+- investor_id
+- investor_type
+- sectors
+- countries
+- min_ticket
+- max_ticket
+- stages
+- min_revenue
+- max_revenue
+- min_ebitda
+- operation_types
+- preferred_growth_profile
+- excluded_sectors
+- keywords
+- notification_enabled
+- created_at
+- updated_at
+
+PARTIE 2 — STARTUP PUBLIÉE DANS LA DEAL ROOM
+
+Une startup ne doit pas déclencher de notification simplement parce qu’elle est créée.
+
+Elle déclenche une notification uniquement lorsqu’elle devient réellement visible dans la Deal Room.
+
+Prévoir les statuts suivants pour une startup :
+
+- draft
+- submitted
+- under_review
+- mandate_signed
+- published_in_dealroom
+- archived
+- rejected
+
+La notification doit se déclencher lorsque :
+
+status = published_in_dealroom
+
+ou lorsque :
+
+mandate_signed = true
+et
+visible_in_dealroom = true
+
+Créer ou adapter une table :
+
+dealroom_opportunities
+
+Champs recommandés :
+
+- id
+- startup_id
+- company_name
+- logo_url
+- sector
+- subsector
+- country
+- city
+- stage
+- operation_type
+- amount_sought
+- revenue
+- ebitda
+- growth_rate
+- wep_status
+- preparation_score
+- expert_opinion
+- short_description
+- deck_url
+- mandate_signed
+- visible_in_dealroom
+- published_at
+- status
+- created_at
+- updated_at
+
+PARTIE 3 — NOTIFICATIONS INTELLIGENTES
+
+Créer un système de notifications intelligentes.
+
+Quand une nouvelle startup est publiée dans la Deal Room, l’application doit comparer cette startup aux critères enregistrés de chaque investisseur validé.
+
+Si la startup correspond aux critères d’un investisseur, créer une notification pour cet investisseur.
+
+Exemple de notification :
+
+Titre :
+Nouvelle opportunité correspondant à vos critères
+
+Message :
+Une nouvelle startup vient d’intégrer la Deal Room Winvesty et correspond à vos critères d’investissement.
+
+Autre exemple plus premium :
+
+Titre :
+Nouvelle opportunité qualifiée
+
+Message :
+Une société récemment intégrée à la Deal Room correspond à vos critères d’investissement. Consultez son dossier.
+
+Créer une table :
+
+notifications
+
+Champs recommandés :
+
+- id
+- user_id
+- type
+- title
+- message
+- related_opportunity_id
+- is_read
+- priority
+- created_at
+
+Types de notification :
+
+- new_matching_opportunity
+- startup_published
+- connection_request_update
+- profile_validation
+- dealroom_update
+
+Règle de déclenchement :
+
+Lorsqu’une opportunité passe en published_in_dealroom :
+1. Récupérer tous les investisseurs validés.
+2. Récupérer leurs critères d’investissement.
+3. Comparer la startup avec leurs critères.
+4. Calculer un score de compatibilité.
+5. Si le score dépasse un seuil minimum, créer une notification.
+6. Marquer la notification comme non lue.
+7. Afficher un badge dans l’application.
+
+Score recommandé :
+
+- secteur correspondant : +30 points
+- pays correspondant : +20 points
+- ticket compatible : +20 points
+- stade compatible : +15 points
+- chiffre d’affaires compatible : +10 points
+- type d’opération compatible : +15 points
+- mots-clés compatibles : +10 points
+
+Si score >= 50 :
+créer une notification.
+
+Si score >= 75 :
+notification prioritaire.
+
+Ajouter dans l’interface :
+
+- icône notifications ;
+- badge rouge ou discret avec nombre de notifications non lues ;
+- écran Notifications ;
+- bouton “Marquer comme lu” ;
+- bouton “Voir l’opportunité” ;
+- possibilité de désactiver les notifications dans le profil investisseur.
+
+Préparer le code pour les notifications push Expo plus tard, mais en V1 créer au minimum des notifications in-app stockées en base Supabase.
+
+PARTIE 4 — DEAL ROOM AVEC FILTRES INTELLIGENTS
+
+Dans la Deal Room mobile, l’investisseur doit pouvoir filtrer les opportunités lui-même.
+
+Aujourd’hui, il ne suffit pas que l’investisseur ait renseigné ses critères dans son profil.
+Il doit aussi pouvoir affiner l’affichage de la Deal Room directement dans l’application.
+
+Créer une zone de filtres dans la Deal Room.
+
+Filtres à prévoir :
+
+- pays ;
+- secteur ;
+- sous-secteur ;
+- stade ;
+- type d’opération : levée de fonds, M&A, cession, acquisition, rapprochement ;
+- montant recherché ;
+- chiffre d’affaires minimum ;
+- chiffre d’affaires maximum ;
+- EBITDA minimum ;
+- croissance minimum ;
+- statut WEP : Access, Premium, Strategic ;
+- score de préparation minimum ;
+- startups récemment ajoutées ;
+- opportunités sauvegardées ;
+- opportunités correspondant à mes critères ;
+- deck disponible ;
+- mandat signé.
+
+L’investisseur doit pouvoir :
+
+- ouvrir les filtres ;
+- sélectionner plusieurs critères ;
+- voir uniquement les startups correspondant aux filtres ;
+- réinitialiser les filtres ;
+- sauvegarder une recherche ;
+- activer une alerte sur une recherche sauvegardée plus tard.
+
+Interface recommandée :
+
+En haut de la Deal Room :
+
+- barre de recherche ;
+- bouton “Filtres” ;
+- bouton “Correspond à mes critères” ;
+- bouton “Réinitialiser” ;
+- tri par pertinence, date d’ajout, montant recherché, score de préparation.
+
+Les filtres doivent fonctionner sur les données Supabase.
+
+Par défaut :
+
+- afficher les opportunités recommandées en premier ;
+- puis les autres opportunités disponibles ;
+- mettre un badge “Match” ou “Correspond à vos critères” sur les opportunités compatibles avec le profil investisseur.
+
+PARTIE 5 — LOGIQUE D’AFFICHAGE DEAL ROOM
+
+La Deal Room ne doit pas être une simple liste.
+
+Chaque carte startup doit afficher :
+
+- logo ;
+- nom de la société ;
+- secteur ;
+- pays ;
+- montant recherché ;
+- stade ;
+- type d’opération ;
+- badge WEP ;
+- score de préparation ;
+- badge “Match” si la startup correspond aux critères de l’investisseur ;
+- bouton “Voir le dossier” ;
+- bouton “Sauvegarder”.
+
+Sur la fiche détaillée :
+
+- résumé ;
+- besoin de financement ou opération M&A ;
+- chiffre d’affaires si disponible ;
+- EBITDA si disponible ;
+- croissance si disponible ;
+- avis Winvesty ;
+- niveau de préparation ;
+- documents disponibles ;
+- bouton “Demander une mise en relation” ;
+- bouton “Sauvegarder” ;
+- bouton “Retour Deal Room”.
+
+PARTIE 6 — EXPÉRIENCE UTILISATEUR
+
+L’app doit rester très simple.
+
+Ne pas surcharger l’écran mobile.
+
+Prévoir :
+
+- filtres repliables ;
+- chips de filtres sélectionnés ;
+- bouton clair “Réinitialiser les filtres” ;
+- message si aucune startup ne correspond ;
+- recommandation automatique : “Élargir les critères” ;
+- badge notification visible mais élégant ;
+- interface premium, sobre, institutionnelle.
+
+Exemple de message si aucun résultat :
+
+Aucune opportunité ne correspond exactement à vos filtres.
+Vous pouvez élargir vos critères ou consulter les opportunités recommandées par Winvesty.
+
+PARTIE 7 — BACK-OFFICE WINVESTY
+
+Ajouter ou préparer côté admin :
+
+- bouton “Publier dans la Deal Room” ;
+- champ “Mandat signé” ;
+- champ “Visible dans la Deal Room” ;
+- statut de publication ;
+- aperçu des investisseurs matchés ;
+- nombre de notifications générées ;
+- possibilité de retirer une startup de la Deal Room.
+
+Lorsqu’un admin publie une startup dans la Deal Room, l’application doit indiquer :
+
+- opportunité publiée ;
+- nombre d’investisseurs correspondant aux critères ;
+- notifications créées.
+
+PARTIE 8 — PRIORITÉ DE DÉVELOPPEMENT
+
+Implémente dans cet ordre :
+
+1. Ajout des champs investisseurs et startups nécessaires
+2. Deal Room mobile avec filtres manuels
+3. Calcul de matching entre critères investisseur et opportunités
+4. Badges “Match” dans la Deal Room
+5. Notifications in-app
+6. Écran notifications
+7. Préparation future notifications push Expo
+8. Back-office admin de publication Deal Room
+
+PARTIE 9 — EXIGENCE IMPORTANTE
+
+Ne crée pas une simple maquette.
+Je veux une V1 fonctionnelle.
+
+Les filtres doivent réellement modifier les résultats affichés.
+Les notifications doivent réellement être créées lorsqu’une startup publiée correspond aux critères d’un investisseur.
+Le scoring doit être lisible.
+Le code doit être propre, modulaire et évolutif.
+
+Ne casse pas l’application existante.
+Ajoute ces fonctionnalités de manière progressive et propre.

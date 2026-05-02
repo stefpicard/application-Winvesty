@@ -1,42 +1,41 @@
 import { BlurView } from "expo-blur";
-import { isLiquidGlassAvailable } from "expo-glass-effect";
-import { Tabs } from "expo-router";
-import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
-import { SymbolView } from "expo-symbols";
 import { Feather } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import React from "react";
-import { Platform, StyleSheet, View, useColorScheme } from "react-native";
+import { Platform, StyleSheet, Text, View, useColorScheme } from "react-native";
 
+import { useNotifications } from "@/context/NotificationsContext";
 import { useColors } from "@/hooks/useColors";
 
-function NativeTabLayout() {
+function NotificationTabIcon({ color, focused }: { color: string; focused: boolean }) {
+  const { unreadCount } = useNotifications();
+  const colors = useColors();
+
   return (
-    <NativeTabs>
-      <NativeTabs.Trigger name="index">
-        <Icon sf={{ default: "house", selected: "house.fill" }} />
-        <Label>Accueil</Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="dealroom">
-        <Icon sf={{ default: "rectangle.stack", selected: "rectangle.stack.fill" }} />
-        <Label>Deal Room</Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="submit">
-        <Icon sf={{ default: "square.and.arrow.up", selected: "square.and.arrow.up.fill" }} />
-        <Label>Dossier</Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="profile">
-        <Icon sf={{ default: "person", selected: "person.fill" }} />
-        <Label>Profil</Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="notifications">
-        <Icon sf={{ default: "bell", selected: "bell.fill" }} />
-        <Label>Alertes</Label>
-      </NativeTabs.Trigger>
-    </NativeTabs>
+    <View style={{ position: "relative" }}>
+      {Platform.OS === "ios" ? (
+        <SymbolView name={focused ? "bell.fill" : "bell"} tintColor={color} size={22} />
+      ) : (
+        <Feather name="bell" size={22} color={color} />
+      )}
+      {unreadCount > 0 && (
+        <View
+          style={[
+            styles.badge,
+            { backgroundColor: colors.gold },
+          ]}
+        >
+          <Text style={styles.badgeText}>
+            {unreadCount > 9 ? "9+" : unreadCount}
+          </Text>
+        </View>
+      )}
+    </View>
   );
 }
 
-function ClassicTabLayout() {
+export default function TabLayout() {
   const colors = useColors();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
@@ -77,9 +76,9 @@ function ClassicTabLayout() {
         name="index"
         options={{
           title: "Accueil",
-          tabBarIcon: ({ color }) =>
+          tabBarIcon: ({ color, focused }) =>
             isIOS ? (
-              <SymbolView name="house" tintColor={color} size={22} />
+              <SymbolView name={focused ? "house.fill" : "house"} tintColor={color} size={22} />
             ) : (
               <Feather name="home" size={22} color={color} />
             ),
@@ -89,9 +88,9 @@ function ClassicTabLayout() {
         name="dealroom"
         options={{
           title: "Deal Room",
-          tabBarIcon: ({ color }) =>
+          tabBarIcon: ({ color, focused }) =>
             isIOS ? (
-              <SymbolView name="rectangle.stack" tintColor={color} size={22} />
+              <SymbolView name={focused ? "rectangle.stack.fill" : "rectangle.stack"} tintColor={color} size={22} />
             ) : (
               <Feather name="layers" size={22} color={color} />
             ),
@@ -101,9 +100,9 @@ function ClassicTabLayout() {
         name="submit"
         options={{
           title: "Dossier",
-          tabBarIcon: ({ color }) =>
+          tabBarIcon: ({ color, focused }) =>
             isIOS ? (
-              <SymbolView name="square.and.arrow.up" tintColor={color} size={22} />
+              <SymbolView name={focused ? "square.and.arrow.up.fill" : "square.and.arrow.up"} tintColor={color} size={22} />
             ) : (
               <Feather name="upload" size={22} color={color} />
             ),
@@ -113,9 +112,9 @@ function ClassicTabLayout() {
         name="profile"
         options={{
           title: "Profil",
-          tabBarIcon: ({ color }) =>
+          tabBarIcon: ({ color, focused }) =>
             isIOS ? (
-              <SymbolView name="person" tintColor={color} size={22} />
+              <SymbolView name={focused ? "person.fill" : "person"} tintColor={color} size={22} />
             ) : (
               <Feather name="user" size={22} color={color} />
             ),
@@ -125,21 +124,30 @@ function ClassicTabLayout() {
         name="notifications"
         options={{
           title: "Alertes",
-          tabBarIcon: ({ color }) =>
-            isIOS ? (
-              <SymbolView name="bell" tintColor={color} size={22} />
-            ) : (
-              <Feather name="bell" size={22} color={color} />
-            ),
+          tabBarIcon: ({ color, focused }) => (
+            <NotificationTabIcon color={color} focused={focused} />
+          ),
         }}
       />
     </Tabs>
   );
 }
 
-export default function TabLayout() {
-  if (isLiquidGlassAvailable()) {
-    return <NativeTabLayout />;
-  }
-  return <ClassicTabLayout />;
-}
+const styles = StyleSheet.create({
+  badge: {
+    position: "absolute",
+    top: -4,
+    right: -6,
+    minWidth: 16,
+    height: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 3,
+  },
+  badgeText: {
+    fontSize: 9,
+    fontFamily: "Inter_700Bold",
+    color: "#FFFFFF",
+  },
+});

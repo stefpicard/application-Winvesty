@@ -15,6 +15,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/context/AuthContext";
+import { InvestorCriteriaProvider } from "@/context/InvestorCriteriaContext";
+import { NotificationsProvider } from "@/context/NotificationsContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,6 +32,7 @@ function RootLayoutNav() {
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="opportunity/[id]" />
       <Stack.Screen name="settings" />
+      <Stack.Screen name="admin" />
     </Stack>
   );
 }
@@ -57,7 +60,11 @@ export default function RootLayout() {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <KeyboardProvider>
               <AuthProvider>
-                <RootLayoutNav />
+                <NotificationsProvider>
+                  <InvestorCriteriaProvider>
+                    <RootLayoutNav />
+                  </InvestorCriteriaProvider>
+                </NotificationsProvider>
               </AuthProvider>
             </KeyboardProvider>
           </GestureHandlerRootView>
